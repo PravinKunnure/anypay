@@ -38,8 +38,7 @@ class AnyPayResult extends StatelessWidget {
         );
         break;
       case PaymentStatus.pending:
-      default:
-        content = Column(
+      content = Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             CircularProgressIndicator(color: theme.primaryColor),
