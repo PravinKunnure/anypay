@@ -1,6 +1,6 @@
 name: anypay
 description: 'AnyPay is a lightweight Flutter package for displaying customizable payment UI with animated result screens'
-version: 0.0.1-dev.3
+version: 0.0.1-dev.5
 homepage: https://github.com/PravinKunnure/anypay
 repository: https://github.com/PravinKunnure/anypay
 documentation: https://github.com/PravinKunnure/anypay#readme

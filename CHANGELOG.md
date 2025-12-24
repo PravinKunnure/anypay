@@ -26,3 +26,8 @@ All notable changes to this package will be documented in this file.
 - `_CheckoutView` for amount entry and payment initiation.
 - `_StatusView` to show payment results (success, failure, pending).
 - `Work Is In Progress For Other Features Of The Package`
+
+
+## [0.0.1-dev.5] - 2025-12-24
+### Added
+`Work Is In Progress For Other Features Of The Package`
