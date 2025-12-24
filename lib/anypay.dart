@@ -1,5 +1,6 @@
 library anypay;
 
-export 'src/payment_ui.dart';
-export 'src/models/payment_result.dart';
-export 'src/theme/payment_theme.dart';
+export 'src/anypayui.dart';
+export 'src/anypay_result.dart';
+export 'src/payment_model.dart';
+export 'src/themes.dart';
