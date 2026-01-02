@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class PaymentStatusWidget extends StatefulWidget {
   final PaymentStatus status;
   final String message;
+  final VoidCallback? onDismissed;
 
   const PaymentStatusWidget({
     super.key,
     required this.status,
     required this.message,
+    this.onDismissed, // callback when animation ends
   });
 
   @override
@@ -23,24 +25,26 @@ class _PaymentStatusWidgetState extends State<PaymentStatusWidget>
   @override
   void initState() {
     super.initState();
+
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 400));
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
 
     _offsetAnimation = Tween<Offset>(
       begin: const Offset(0, 1),
       end: const Offset(0, 0),
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     _controller.forward();
 
+    // Auto-dismiss after 2 seconds
     Future.delayed(const Duration(seconds: 2), () {
-      _controller.reverse().then((value) {
-        if (mounted) {
-          Overlay.of(context).setState(() {});
-        }
-      });
+      if (mounted) {
+        _controller.reverse().then((value) {
+          widget.onDismissed?.call(); // let overlay remove itself
+        });
+      }
     });
   }
 
@@ -65,6 +69,7 @@ class _PaymentStatusWidgetState extends State<PaymentStatusWidget>
       case PaymentStatus.error:
         bgColor = Colors.grey;
         icon = const Icon(Icons.warning, color: Colors.white);
+        break;
     }
 
     return SlideTransition(
@@ -79,7 +84,10 @@ class _PaymentStatusWidgetState extends State<PaymentStatusWidget>
             borderRadius: BorderRadius.circular(12),
             boxShadow: const [
               BoxShadow(
-                  color: Colors.black26, blurRadius: 6, offset: Offset(0, 3))
+                color: Colors.black26,
+                blurRadius: 6,
+                offset: Offset(0, 3),
+              ),
             ],
           ),
           child: Row(
@@ -87,7 +95,7 @@ class _PaymentStatusWidgetState extends State<PaymentStatusWidget>
             children: [
               icon,
               const SizedBox(width: 12),
-              Expanded(
+              Flexible(
                 child: Text(
                   widget.message,
                   style: const TextStyle(color: Colors.white, fontSize: 16),

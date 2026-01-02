@@ -6,13 +6,14 @@ export 'src/adapters/payment_adapter.dart';
 export 'src/utils/logger.dart';
 export 'src/utils/payment_status_overlay.dart';
 export 'src/utils/payment_status_widget.dart';
-export 'src/models/payment_status.dart';
+export 'src/models/payment_provider.dart'; // Add enum export
+export 'src/models/payment_status.dart'; // Add enum export
 
 // lib/anypay.dart
 import 'src/adapters/payment_adapter.dart';
 import 'src/models/payment_options.dart';
 import 'src/models/payment_result.dart';
-import 'src/models/payment_status.dart';
+import 'src/models/payment_provider.dart';
 import 'src/utils/logger.dart';
 
 class AnyPay {
@@ -24,48 +25,35 @@ class AnyPay {
     Logger.log('Registered adapter for provider: $providerName');
   }
 
+  /// Check if provider is registered
   static bool isRegistered(String providerName) =>
       _adapters.containsKey(providerName);
 
-  /// Charge payment and return result with status
-  static Future<PaymentResult> charge({
+  /// Charge payment using String provider name
+  static Future<PaymentResult> chargeWithName({
     required String providerName,
     required PaymentOptions options,
   }) async {
     final adapter = _adapters[providerName];
     if (adapter == null) {
-      return PaymentResult(
-        success: false,
-        status: PaymentStatus.error,
+      return PaymentResult.error(
         message: 'Payment provider "$providerName" is not registered.',
       );
     }
 
     try {
+      // Let adapter return proper PaymentResult
       final result = await adapter.charge(options);
-
-      // Assign status based on SDK result
-      PaymentStatus status;
-      if (result.success) {
-        status = PaymentStatus.success;
-      } else if (result.message?.toLowerCase().contains('pending') ?? false) {
-        status = PaymentStatus.pending;
-      } else {
-        status = PaymentStatus.failed;
-      }
-
-      return PaymentResult(
-        success: result.success,
-        transactionId: result.transactionId,
-        message: result.message,
-        status: status,
-      );
+      return result;
     } catch (e) {
-      return PaymentResult(
-        success: false,
-        status: PaymentStatus.error,
-        message: e.toString(),
-      );
+      return PaymentResult.error(message: e.toString());
     }
   }
+
+  /// Charge payment using enum provider
+  static Future<PaymentResult> charge({
+    required PaymentProvider provider,
+    required PaymentOptions options,
+  }) =>
+      chargeWithName(providerName: provider.name, options: options);
 }

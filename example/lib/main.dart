@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:anypay/anypay.dart';
-import 'example_adapter.dart'; // Your adapters This is example adapter you can define yours according to your need
+import 'example_adapter.dart'; // Define your adapters according to need
 
 void main() {
   // Register adapters
@@ -37,13 +37,11 @@ class _PaymentHomePageState extends State<PaymentHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // ExampleAdapter Button
             ElevatedButton(
               onPressed: _isProcessing ? null : () => _pay('example'),
               child: const Text('Pay with ExampleAdapter'),
             ),
             const SizedBox(height: 20),
-            // MockAdapter Button
             ElevatedButton(
               onPressed: _isProcessing ? null : () => _pay('mock'),
               child: const Text('Pay with MockAdapter'),
@@ -55,12 +53,10 @@ class _PaymentHomePageState extends State<PaymentHomePage> {
   }
 
   Future<void> _pay(String providerName) async {
-    setState(() {
-      _isProcessing = true;
-    });
+    setState(() => _isProcessing = true);
 
     try {
-      final result = await AnyPay.charge(
+      final result = await AnyPay.chargeWithName(
         providerName: providerName,
         options: PaymentOptions(
           amount: providerName == 'example' ? 5000 : 100,
@@ -68,9 +64,16 @@ class _PaymentHomePageState extends State<PaymentHomePage> {
         ),
       );
 
-      if (!mounted) return; // Safe check before using context
+      if (!mounted) return;
 
-      // Developer decides how to show UI based on status
+      // Show temporary overlay for quick feedback
+      PaymentStatusOverlay.show(
+        context,
+        status: result.status,
+        message: result.message ?? '',
+      );
+
+      // Developer-controlled detailed UI
       switch (result.status) {
         case PaymentStatus.success:
           _showDialog('Success', result.message ?? 'Payment succeeded');
@@ -90,11 +93,7 @@ class _PaymentHomePageState extends State<PaymentHomePage> {
         _showDialog('Error', e.toString());
       }
     } finally {
-      if (mounted) {
-        setState(() {
-          _isProcessing = false;
-        });
-      }
+      if (mounted) setState(() => _isProcessing = false);
     }
   }
 

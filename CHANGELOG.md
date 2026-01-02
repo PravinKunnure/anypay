@@ -5,79 +5,73 @@ This project follows early-stage semantic versioning during development.
 
 ---
 
-## [0.0.1-dev.7] - 2026-01-02
-
-### Changed
-- **Major architectural shift** from UI-based payment flows to a **UI-agnostic, adapter-based payment abstraction**.
-- Removed built-in checkout and payment status UI as a core feature.
-- Removed enforced animations and UI assumptions.
-- Dependency choice (Stripe, Razorpay, PayPal, etc.) fully delegated to the developer.
+## [0.1.0] - 2026-01-02
 
 ### Added
-- `PaymentAdapter` interface for integrating any payment provider.
-- Unified `AnyPay.charge()` API.
-- `PaymentOptions` model for standardized payment input.
-- `PaymentResult` model with explicit payment states:
-  - `success`
-  - `failed`
-  - `pending`
-  - `error`
-- Adapter registration system.
-- Provider-agnostic execution flow.
-- Improved testability through mock adapters.
-- Documentation aligned with adapter-based architecture.
+
+* Official release of AnyPay as a **UI-agnostic, adapter-based payments plugin**.
+* `PaymentAdapter` interface to integrate any payment provider.
+* Unified `AnyPay.chargeWithName()` API.
+* `PaymentOptions` model for standardized payment input.
+* `PaymentResult` model with explicit payment states: `success`, `failed`, `pending`, `error`.
+* Adapter registration system (`AnyPay.registerAdapter`).
+* Developer-controlled UI for payment states.
+* Overlay helper (`PaymentStatusOverlay`) and animated widget (`PaymentStatusWidget`) for optional status feedback.
+* Improved testing and mocking capabilities.
+
+### Changed
+
+* Removed all built-in payment UI, checkout flow, and enforced animations.
+* Dependency choice (Stripe, Razorpay, PayPal, etc.) delegated to the developer.
+* Core package now focuses entirely on payment abstraction and status reporting.
 
 ### Breaking Changes
-- Built-in payment UI, checkout flow, and animations are no longer part of the core API.
-- Developers must implement their own UI for payment states.
+
+* Built-in payment UI and animations from previous dev versions are no longer included.
+* Developers must implement their own UI and animations for success, failed, pending, or error states.
 
 ### Notes
-- This release establishes the **foundation architecture** of AnyPay.
-- Any future UI helpers or animations will be **optional and non-enforced**.
+
+* This release establishes the foundation architecture for AnyPay v0.1.0.
+* Future releases may include optional UI helpers, animated overlays, and official adapters.
+
+---
+
+## [0.0.1-dev.7] - 2026-01-02
+
+### Added / Changed
+
+* Transitioned from UI-driven design to **adapter-based abstraction**.
+* Documentation updated for the new architecture.
+* Internal mock adapters introduced for testing.
+
+### Breaking Changes
+
+* All built-in UI and animations removed.
 
 ---
 
 ## [0.0.1-dev.5] - 2025-12-24
 
 ### Changed
-- Began transitioning away from fixed payment UI assumptions.
-- Internal exploration of abstraction-based payment handling.
 
-### Notes
-- Marked as work-in-progress.
-- UI components considered experimental and unstable.
+* Work-in-progress refactoring of payment handling towards abstraction.
 
 ---
 
 ## [0.0.1-dev.3] - 2025-12-24
 
 ### Added
-- Internal refactoring of payment UI components.
-- Improved handling of payment states.
-- Early groundwork for extensibility.
 
-### Notes
-- Package remained UI-driven.
-- Work-in-progress release.
+* Experimental UI components and payment state handling.
 
 ---
 
 ## [0.0.1-dev.1] - 2025-12-18
 
 ### Added
-- Initial experimental dev release of AnyPay.
-- Built-in payment UI prototype.
-- Checkout flow with amount entry screen.
-- Status screens for success, failure, and pending payments.
-- Customizable `PaymentTheme`:
-  - Colors
-  - Text styles
-  - Border radius
-  - Animation configuration
-- Animated payment result screens:
-  - Bounce animation for success and failure
-  - Rotating animation for pending
-- Example app to simulate payment outcomes.
-- Fully self-contained UI with no external payment SDKs.
 
----
+* Initial dev release with built-in UI prototype.
+* Checkout and status screens.
+* Customizable theme and animations.
+* Example app simulating payment outcomes.
