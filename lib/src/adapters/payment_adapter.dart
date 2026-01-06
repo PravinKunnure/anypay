@@ -1,5 +1,4 @@
-import '../models/payment_options.dart';
-import '../models/payment_result.dart';
+import 'package:anypay/anypay.dart';
 
 /// Abstract class for payment provider adapters
 abstract class PaymentAdapter {

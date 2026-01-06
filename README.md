@@ -27,7 +27,7 @@ Current version: 0.1.0
 
 ```yaml
 dependencies:
-  anypay: ^0.1.0
+  anypay: <latest_version>
 ```
 
 ---

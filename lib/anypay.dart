@@ -8,6 +8,7 @@ export 'src/utils/payment_status_overlay.dart';
 export 'src/utils/payment_status_widget.dart';
 export 'src/models/payment_provider.dart'; // Add enum export
 export 'src/models/payment_status.dart'; // Add enum export
+export 'src/adapters/mock_adapter.dart'; // Add enum export
 
 // lib/anypay.dart
 import 'src/adapters/payment_adapter.dart';

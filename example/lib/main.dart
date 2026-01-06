@@ -4,8 +4,28 @@ import 'example_adapter.dart'; // Define your adapters according to need
 
 void main() {
   // Register adapters
+
+  WidgetsFlutterBinding.ensureInitialized();
+
   AnyPay.registerAdapter('example', ExampleAdapter());
-  AnyPay.registerAdapter('mock', MockAdapter());
+  AnyPay.registerAdapter('mock', MockAdapterExample());
+
+  AnyPay.registerAdapter(
+    'mock_success',
+    MockAdapter(state: MockPaymentState.success),
+  );
+  AnyPay.registerAdapter(
+    'mock_failed',
+    MockAdapter(state: MockPaymentState.failed),
+  );
+  AnyPay.registerAdapter(
+    'mock_pending',
+    MockAdapter(state: MockPaymentState.pending),
+  );
+  AnyPay.registerAdapter(
+    'mock_error',
+    MockAdapter(state: MockPaymentState.error),
+  );
 
   runApp(const MyApp());
 }
@@ -45,6 +65,23 @@ class _PaymentHomePageState extends State<PaymentHomePage> {
             ElevatedButton(
               onPressed: _isProcessing ? null : () => _pay('mock'),
               child: const Text('Pay with MockAdapter'),
+            ),
+
+            ElevatedButton(
+              onPressed: () => _pay('mock_success'),
+              child: const Text('Mock Payment Success'),
+            ),
+            ElevatedButton(
+              onPressed: () => _pay('mock_failed'),
+              child: const Text('Mock Payment Failed'),
+            ),
+            ElevatedButton(
+              onPressed: () => _pay('mock_pending'),
+              child: const Text('Mock Payment Pending'),
+            ),
+            ElevatedButton(
+              onPressed: () => _pay('mock_error'),
+              child: const Text('Mock Payment Error'),
             ),
           ],
         ),

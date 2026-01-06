@@ -41,7 +41,7 @@ class ExampleAdapter implements PaymentAdapter {
   }
 }
 
-class MockAdapter implements PaymentAdapter {
+class MockAdapterExample implements PaymentAdapter {
   @override
   Future<PaymentResult> charge(PaymentOptions options) async {
     await Future.delayed(const Duration(milliseconds: 500));

@@ -1,6 +1,5 @@
 import 'package:anypay/anypay.dart';
 import 'package:flutter/material.dart';
-import 'payment_status_widget.dart';
 
 class PaymentStatusOverlay {
   /// Show a payment status overlay at the bottom
