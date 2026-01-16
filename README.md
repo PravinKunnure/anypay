@@ -1,7 +1,7 @@
 # AnyPay
 
 
-## ⚠️ Disclaimer: The AnyPay package is still in early development and may contain bugs. Use it at your own risk.
+## ⚠️ Disclaimer: The AnyPay package is still in early development and may contain bugs.
 
 [![Pub Version](https://img.shields.io/pub/v/anypay)](https://pub.dev/packages/anypay) | [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 
