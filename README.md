@@ -1,8 +1,5 @@
 # AnyPay
 
-
-## ⚠️ Disclaimer: The AnyPay package is still in early development and may contain bugs.
-
 [![Pub Version](https://img.shields.io/pub/v/anypay)](https://pub.dev/packages/anypay) | [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 
 AnyPay is a unified payments plugin for Flutter that provides a single, consistent API for integrating multiple payment providers. It uses an adapter-based architecture and is completely UI-agnostic, giving developers full control over how payment results are displayed.
