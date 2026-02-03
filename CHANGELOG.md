@@ -6,6 +6,9 @@ This project follows early-stage semantic versioning during development.
 
 ---
 
+## [0.1.5] - 2026-02-03
+- Minor bug fixing documentations changes
+
 ## [0.1.4] - 2026-01-28
 - Minor bug fixing documentations changes
 
